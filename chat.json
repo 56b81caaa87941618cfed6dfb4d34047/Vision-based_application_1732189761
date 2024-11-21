@@ -252,5 +252,15 @@
         "source": "base_assistant",
         "content": "I have added a new subtitle \"RRR\" to the footer component. What would you like to do next?",
         "metadata": {}
+    },
+    {
+        "id": "c25d5643-ca3b-4fe2-9eef-3ae0d17f3c01",
+        "timestamp": "2024-11-21T13:23:00.758263Z",
+        "role": "user",
+        "source": "web_client",
+        "content": "add now a beautifull model that calculates your score, if you select option1, A it scores 1, if B 0 , option 2 A: scores 1 option 2 B socres 0. Add the sum of both scores.",
+        "metadata": {
+            "component_id": "Hero1732189764"
+        }
     }
 ]
