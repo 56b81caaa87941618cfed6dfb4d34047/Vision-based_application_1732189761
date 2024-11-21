@@ -12,6 +12,12 @@ const Footer: React.FC = () => {
             <p className="text-gray-400">© 2023 VisioTech. Enhancing vision, empowering lives.</p>
           </div>
 
+          {/* WAT COPY */}
+          <div className="w-full md:w-1/3 mb-6 md:mb-0">
+            <h3 className="text-xl font-bold mb-2">WAT</h3>
+            <p className="text-gray-400">WAT: We Are Tech. Innovating for a brighter future.</p>
+          </div>
+
           {/* SOCIALS */}
           <div className="w-full md:w-1/3 mb-6 md:mb-0">
             <h4 className="text-lg font-semibold mb-2">Follow Us</h4>
