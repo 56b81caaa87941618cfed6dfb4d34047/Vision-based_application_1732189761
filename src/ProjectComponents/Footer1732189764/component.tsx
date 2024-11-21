@@ -7,19 +7,30 @@ const Footer: React.FC = () => {
         <div className="flex flex-wrap justify-between h-full">
           
           {/* FOOTER COPY */}
+          <div className="w-full md:w-1/4 mb-6 md:mb-0">
+          
+          {/* FOOTER COPY */}
           <div className="w-full md:w-1/3 mb-6 md:mb-0">
             <h3 className="text-xl font-bold mb-2">WT</h3>
             <p className="text-gray-400">© 2023 VisioTech. Enhancing vision, empowering lives.</p>
           </div>
 
           {/* WAT COPY */}
-          <div className="w-full md:w-1/3 mb-6 md:mb-0">
+          <div className="w-full md:w-1/4 mb-6 md:mb-0">
             <h3 className="text-xl font-bold mb-2">WAT</h3>
             <p className="text-gray-400">WAT: We Are Tech. Innovating for a brighter future.</p>
           </div>
 
+          {/* WWW COPY */}
+          <div className="w-full md:w-1/4 mb-6 md:mb-0">
+            <h3 className="text-xl font-bold mb-2">WWW</h3>
+            <p className="text-gray-400">WWW: World Wide Web. Connecting people globally.</p>
+          </div>
+
           {/* SOCIALS */}
-          <div className="w-full md:w-1/3 mb-6 md:mb-0">
+
+          {/* SOCIALS */}
+          <div className="w-full md:w-1/4 mb-6 md:mb-0">
             <h4 className="text-lg font-semibold mb-2">Follow Us</h4>
             <div className="flex space-x-4">
               <a href="#" className="text-gray-400 hover:text-white">Facebook</a>
