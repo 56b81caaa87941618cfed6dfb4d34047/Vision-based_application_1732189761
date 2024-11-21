@@ -1,0 +1,23 @@
+{
+    "name": "example",
+    "prefix": "%#PLACEHOLDER",
+    "placeholderMappings": {
+        "Header": [
+            "APPLICATION_NAME"
+        ],
+        "Hero": [
+            "HERO_HEADING_TEXT",
+            "HERO_SUBHEADING_TEXT"
+        ],
+        "Footer": [
+            "APPLICATION_NAME",
+            "FOOTER_TEXT"
+        ]
+    },
+    "placeholders": {
+        "APPLICATION_NAME": "VisioTech",
+        "HERO_HEADING_TEXT": "See the World Through New Eyes",
+        "HERO_SUBHEADING_TEXT": "Revolutionizing eye care with cutting-edge technology and personalized solutions for your vision needs.",
+        "FOOTER_TEXT": "\u00a9 2023 VisioTech. Enhancing vision, empowering lives."
+    }
+}
