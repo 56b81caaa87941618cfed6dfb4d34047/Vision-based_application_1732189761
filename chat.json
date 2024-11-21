@@ -132,5 +132,15 @@
         "source": "base_assistant",
         "content": "I have added a copy with the text \"WAT\" to the footer component. What would you like to do next?",
         "metadata": {}
+    },
+    {
+        "id": "cfcc47f8-82a5-4b6f-9a68-5cce7b300eca",
+        "timestamp": "2024-11-21T13:19:56.433411Z",
+        "role": "user",
+        "source": "web_client",
+        "content": "add a new copy \"WWW\"",
+        "metadata": {
+            "component_id": "Header1732189764"
+        }
     }
 ]
