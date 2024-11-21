@@ -126,5 +126,13 @@
         "source": "base_assistant",
         "content": "The title has been updated to \"WT\". Anything else you want to modify?",
         "metadata": {}
+    },
+    {
+        "id": "def27866-4396-4bbe-8b66-9b179616b38c",
+        "timestamp": "2024-11-21T11:53:31.816133Z",
+        "role": "user",
+        "source": "web_client",
+        "content": "change the title to \"WT\"",
+        "metadata": {}
     }
 ]
