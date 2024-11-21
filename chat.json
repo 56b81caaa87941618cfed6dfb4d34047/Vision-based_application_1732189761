@@ -24,5 +24,15 @@
         "source": "base_assistant",
         "content": "Can you provide a brief description for the image you would like to use as the background?",
         "metadata": {}
+    },
+    {
+        "id": "60c1bf3f-c165-4d4c-8730-c58f8854aa12",
+        "timestamp": "2024-11-21T11:50:06.768145Z",
+        "role": "user",
+        "source": "web_client",
+        "content": "of an eye",
+        "metadata": {
+            "component_id": "Footer1732189764"
+        }
     }
 ]
