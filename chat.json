@@ -22,5 +22,20 @@
         "source": "web_client",
         "content": "change the title to \"WAT\"",
         "metadata": {}
+    },
+    {
+        "id": "18e4e545-8428-4fd5-83b4-d619fc2511b6",
+        "timestamp": "2024-11-21T11:55:14.887503Z",
+        "role": "tool_call",
+        "source": "base_assistant",
+        "content": null,
+        "metadata": {
+            "id": "call_fcsqhuXkxpLdH2QU9yS77VTB",
+            "function": {
+                "arguments": "{\"component_id\":\"Header1732189764\",\"change_description\":\"Change the title to 'WAT'\",\"acknowledgement_message\":\"Changing the title to WAT...\"}",
+                "name": "EditFrontendComponent"
+            },
+            "type": "function"
+        }
     }
 ]
