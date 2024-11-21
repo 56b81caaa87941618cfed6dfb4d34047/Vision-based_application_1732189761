@@ -6,5 +6,13 @@
         "source": "base_assistant",
         "content": "Welcome to your new project! I can help you edit it however you want. What would you like to do?",
         "metadata": {}
+    },
+    {
+        "id": "891019a5-b61c-4279-9367-3106192ce7df",
+        "timestamp": "2024-11-21T11:54:19.996654Z",
+        "role": "user",
+        "source": "web_client",
+        "content": "change the title to \"WT\"",
+        "metadata": {}
     }
 ]
