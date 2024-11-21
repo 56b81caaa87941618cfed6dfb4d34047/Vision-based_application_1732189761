@@ -67,5 +67,13 @@
         "metadata": {
             "tool_call_id": "call_tAnNrS944wS8Yk9AZpvOiAob"
         }
+    },
+    {
+        "id": "4b3af8b9-b81c-4e1f-a329-cfa774c3c4eb",
+        "timestamp": "2024-11-21T11:50:28.093180Z",
+        "role": "assistant",
+        "source": "base_assistant",
+        "content": "The image of an eye has been added to the background. What would you like to do next?",
+        "metadata": {}
     }
 ]
