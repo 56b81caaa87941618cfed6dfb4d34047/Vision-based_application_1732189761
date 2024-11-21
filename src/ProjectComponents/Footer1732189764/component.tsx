@@ -8,7 +8,7 @@ const Footer: React.FC = () => {
           
           {/* FOOTER COPY */}
           <div className="w-full md:w-1/3 mb-6 md:mb-0">
-            <h3 className="text-xl font-bold mb-2">VisioTech</h3>
+            <h3 className="text-xl font-bold mb-2">WT</h3>
             <p className="text-gray-400">© 2023 VisioTech. Enhancing vision, empowering lives.</p>
           </div>
 
