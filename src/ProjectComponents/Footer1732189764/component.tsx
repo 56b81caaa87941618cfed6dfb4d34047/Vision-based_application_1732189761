@@ -27,6 +27,14 @@ const Footer: React.FC = () => {
             <p className="text-gray-400">WWW: World Wide Web. Connecting people globally.</p>
           </div>
 
+          {/* RRR COPY */}
+          <div className="w-full md:w-1/4 mb-6 md:mb-0">
+            <h3 className="text-xl font-bold mb-2">RRR</h3>
+            <p className="text-gray-400">RRR: Revolutionize, Redefine, Reinvent. Pushing boundaries in tech.</p>
+          </div>
+
+          {/* SOCIALS */}
+
           {/* SOCIALS */}
 
           {/* SOCIALS */}
