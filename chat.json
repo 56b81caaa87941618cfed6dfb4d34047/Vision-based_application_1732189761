@@ -142,5 +142,13 @@
         "metadata": {
             "component_id": "Header1732189764"
         }
+    },
+    {
+        "id": "29030f9d-2b4a-434c-aea2-110c5c5c3c5f",
+        "timestamp": "2024-11-21T13:19:59.388321Z",
+        "role": "assistant",
+        "source": "base_assistant",
+        "content": "You need to unselect the current component first in order to add a new one. Please go to the \"Components\" tab, then drag and drop the new component into the canvas. Let me know if you need assistance with this process!",
+        "metadata": {}
     }
 ]
