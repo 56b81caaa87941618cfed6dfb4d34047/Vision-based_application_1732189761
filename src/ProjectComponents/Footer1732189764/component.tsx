@@ -2,7 +2,7 @@ import React from 'react';
 
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-gray-800 text-white p-8 w-full h-full"> {/* Full width and height */}
+    <footer className="bg-gray-800 text-white p-8 w-full h-full bg-cover bg-center" style={{backgroundImage: 'url("https://raw.githubusercontent.com/56b81caaa87941618cfed6dfb4d34047/Vision-based_application_1732189761/main/src/assets/images/6a634b365ca34fc7995a23d039ebb5c4.jpeg")'}}> {/* Full width and height with background image */}
       <div className="container mx-auto h-full">
         <div className="flex flex-wrap justify-between h-full">
           
