@@ -150,5 +150,15 @@
         "source": "base_assistant",
         "content": "You need to unselect the current component first in order to add a new one. Please go to the \"Components\" tab, then drag and drop the new component into the canvas. Let me know if you need assistance with this process!",
         "metadata": {}
+    },
+    {
+        "id": "67251992-0775-4811-8366-96f3853cda78",
+        "timestamp": "2024-11-21T13:20:11.064350Z",
+        "role": "user",
+        "source": "web_client",
+        "content": "this is code",
+        "metadata": {
+            "component_id": "Header1732189764"
+        }
     }
 ]
