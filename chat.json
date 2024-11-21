@@ -201,5 +201,15 @@
         "source": "base_assistant",
         "content": "I have added a new copy with the text \"WWW\" to the footer component. What would you like to do next?",
         "metadata": {}
+    },
+    {
+        "id": "0283ca06-c525-42a2-9c6b-ced0b3f13b77",
+        "timestamp": "2024-11-21T13:20:39.587001Z",
+        "role": "user",
+        "source": "web_client",
+        "content": "add a new subtitle \"RRR\"",
+        "metadata": {
+            "component_id": "Hero1732189764"
+        }
     }
 ]
