@@ -81,5 +81,15 @@
         "source": "base_assistant",
         "content": "You need to unselect the current component first in order to add a new one. Please go to the \"Components\" tab, then drag and drop the new component into the canvas. Let me know if you need assistance with this process!",
         "metadata": {}
+    },
+    {
+        "id": "11fd6671-c86e-45a8-83ba-ca297f01731d",
+        "timestamp": "2024-11-21T13:19:29.696693Z",
+        "role": "user",
+        "source": "web_client",
+        "content": "add a copy text \"WAT\"",
+        "metadata": {
+            "component_id": "Footer1732189764"
+        }
     }
 ]
