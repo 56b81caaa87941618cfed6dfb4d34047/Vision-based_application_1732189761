@@ -395,5 +395,13 @@
         "source": "web_client",
         "content": "generate a smart contract that allows me to stake eth (holeskty)",
         "metadata": {}
+    },
+    {
+        "id": "064947c7-cc5f-4386-8c3a-8c34d953092f",
+        "timestamp": "2024-12-10T08:35:51.658507Z",
+        "role": "user",
+        "source": "web_client",
+        "content": "generate a staking sc",
+        "metadata": {}
     }
 ]
