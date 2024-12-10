@@ -469,5 +469,15 @@
         "source": "smart_contract_assistant",
         "content": "The staking smart contract has been generated. Would you like to proceed with deploying it to the HOLESKY network?",
         "metadata": {}
+    },
+    {
+        "id": "bd0896b5-e0ff-42cc-8973-c2d018528a32",
+        "timestamp": "2024-12-10T08:45:10.550012Z",
+        "role": "user",
+        "source": "web_client",
+        "content": "generate a sc for staking",
+        "metadata": {
+            "component_id": "Header1732189764"
+        }
     }
 ]
