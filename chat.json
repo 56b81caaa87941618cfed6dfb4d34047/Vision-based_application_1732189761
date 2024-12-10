@@ -1197,5 +1197,20 @@
         "source": "web_client",
         "content": "generate a storing sc",
         "metadata": {}
+    },
+    {
+        "id": "0cd61eda-9310-48e3-8ae1-99b9e44da4be",
+        "timestamp": "2024-12-10T11:31:05.893125Z",
+        "role": "tool_call",
+        "source": "smart_contract_assistant",
+        "content": null,
+        "metadata": {
+            "id": "call_9Pk5FlxBrgPiGlgYWRGZVkDU",
+            "function": {
+                "arguments": "{\"contract_id\":\"StoringContract2\",\"description\":\"A smart contract for securely storing and retrieving data on the blockchain.\",\"acknowledgement_message\":\"Generating the storing smart contract...\"}",
+                "name": "WriteSmartContract"
+            },
+            "type": "function"
+        }
     }
 ]
