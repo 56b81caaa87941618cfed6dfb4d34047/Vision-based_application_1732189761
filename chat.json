@@ -1346,5 +1346,20 @@
         "source": "web_client",
         "content": "generate another minintg contract",
         "metadata": {}
+    },
+    {
+        "id": "c14c3263-98bf-4bc4-b91a-6fc02f4b62ef",
+        "timestamp": "2024-12-10T11:43:04.412241Z",
+        "role": "tool_call",
+        "source": "smart_contract_assistant",
+        "content": null,
+        "metadata": {
+            "id": "call_kyflDKCinXYvAS35RdTLf6k7",
+            "function": {
+                "arguments": "{\"contract_id\":\"MiningContract1\",\"description\":\"A smart contract for mining rewards on the HOLESKY network.\",\"acknowledgement_message\":\"Generating the mining smart contract...\"}",
+                "name": "WriteSmartContract"
+            },
+            "type": "function"
+        }
     }
 ]
