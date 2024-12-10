@@ -1040,5 +1040,54 @@
         "source": "smart_contract_assistant",
         "content": "The storing smart contract has been regenerated. Would you like to proceed with deploying it to the SEPOLIA network?",
         "metadata": {}
+    },
+    {
+        "id": "4c9a641d-4561-495f-9ee0-8cbc7806a2fe",
+        "timestamp": "2024-12-10T10:57:19.947529Z",
+        "role": "user",
+        "source": "web_client",
+        "content": "deploy it in sepolia again",
+        "metadata": {}
+    },
+    {
+        "id": "5f4dbfe5-95d0-410d-b6d2-ddf92a8f0d66",
+        "timestamp": "2024-12-10T10:57:23.122299Z",
+        "role": "tool_call",
+        "source": "smart_contract_assistant",
+        "content": null,
+        "metadata": {
+            "id": "call_yiLDHfoL8ON7CLHm7uYobvlc",
+            "function": {
+                "arguments": "{\"contract_id\":\"StoringContract1\",\"network\":\"SEPOLIA\",\"frontend_description\":\"Frontend for securely storing and retrieving data, handling data storage and retrieval operations as defined in the contract.\",\"acknowledgement_message\":\"Deploying the smart contract to the SEPOLIA network...\"}",
+                "name": "DeployAndGenerateFrontend"
+            },
+            "type": "function"
+        }
+    },
+    {
+        "id": "49e8a9e7-999d-484e-99ba-e2d8c51120b0",
+        "timestamp": "2024-12-10T10:57:23.230105Z",
+        "role": "assistant",
+        "source": "tool:DeployAndGenerateFrontend",
+        "content": "Deploying the smart contract to the SEPOLIA network...",
+        "metadata": {}
+    },
+    {
+        "id": "e1f30a78-e519-4543-abfc-465aa34ad59c",
+        "timestamp": "2024-12-10T10:58:33.768563Z",
+        "role": "tool_result",
+        "source": "DeployAndGenerateFrontend",
+        "content": "Success: deployed contract to 0xF9D5135473783c1097D43E467739be426259827e on Sepolia (Ethereum testnet)",
+        "metadata": {
+            "tool_call_id": "call_yiLDHfoL8ON7CLHm7uYobvlc"
+        }
+    },
+    {
+        "id": "546e3524-7df0-47e1-b1e9-d486a289fcbe",
+        "timestamp": "2024-12-10T10:58:35.803888Z",
+        "role": "assistant",
+        "source": "smart_contract_assistant",
+        "content": "The storing smart contract has been successfully deployed to the SEPOLIA network at the address 0xF9D5135473783c1097D43E467739be426259827e. What would you like to do next?",
+        "metadata": {}
     }
 ]
