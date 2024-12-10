@@ -76,7 +76,10 @@ const AirdropClientInteraction: React.FC = () => {
 
       // Send 0.011 ETH (0.001 ETH * 10 + extra for query)
       const totalAmount = ethers.utils.parseEther("0.011");
-      const tx = await contract.queryZKPay({ value: totalAmount });
+      const tx = await contract.queryZKPay({ 
+          value: totalAmount,
+          gasLimit: 1000000  // 1 million gas units
+      });
       addLog(`Transaction sent: ${tx.hash}`);
 
       const receipt = await tx.wait();
