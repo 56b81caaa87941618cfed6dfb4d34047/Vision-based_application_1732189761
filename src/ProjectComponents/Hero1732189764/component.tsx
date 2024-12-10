@@ -1,42 +1,173 @@
-import React from 'react';
 
-const Hero: React.FC = () => {
-  
+import React from 'react';
+import * as ethers from 'ethers';
+
+const ABI = [
+  "function queryZKPay() external payable",
+  "function cancelQuery(bytes32 queryHash) external",
+  "function withdraw() external",
+  "function _owner() public view returns (address)",
+  "event QuerySubmitted(bytes32 queryHash)"
+];
+
+const AirdropClientInteraction: React.FC = () => {
+  const [address, setAddress] = React.useState<string>('');
+  const [isOwner, setIsOwner] = React.useState<boolean>(false);
+  const [queryHash, setQueryHash] = React.useState<string>('');
+  const [cancelQueryHash, setCancelQueryHash] = React.useState<string>('');
+  const [contractBalance, setContractBalance] = React.useState<string>('');
+  const [error, setError] = React.useState<string>('');
+
+  const contractAddress = '0xAb45Ab86CbC6127e94f650a2b7058670b1eC081E';
+  const chainId = 11155111; // Sepolia testnet
+
+  const connectWallet = async () => {
+    try {
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      await provider.send("eth_requestAccounts", []);
+      const signer = provider.getSigner();
+      const address = await signer.getAddress();
+      setAddress(address);
+
+      const network = await provider.getNetwork();
+      if (network.chainId !== chainId) {
+        await window.ethereum.request({
+          method: 'wallet_switchEthereumChain',
+          params: [{ chainId: ethers.utils.hexValue(chainId) }],
+        });
+      }
+
+      const contract = new ethers.Contract(contractAddress, ABI, signer);
+      const owner = await contract._owner();
+      setIsOwner(address.toLowerCase() === owner.toLowerCase());
+
+      updateContractBalance(provider);
+    } catch (err) {
+      setError('Failed to connect wallet: ' + (err as Error).message);
+    }
+  };
+
+  const updateContractBalance = async (provider: ethers.providers.Web3Provider) => {
+    const balance = await provider.getBalance(contractAddress);
+    setContractBalance(ethers.utils.formatEther(balance));
+  };
+
+  const queryZKPay = async () => {
+    try {
+      if (!address) {
+        await connectWallet();
+      }
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+      const contract = new ethers.Contract(contractAddress, ABI, signer);
+
+      const tx = await contract.queryZKPay({ value: ethers.utils.parseEther("4") });
+      const receipt = await tx.wait();
+
+      const event = receipt.events?.find((e: any) => e.event === 'QuerySubmitted');
+      if (event) {
+        setQueryHash(event.args?.queryHash);
+      }
+
+      updateContractBalance(provider);
+    } catch (err) {
+      setError('Failed to query ZKPay: ' + (err as Error).message);
+    }
+  };
+
+  const cancelQuery = async () => {
+    try {
+      if (!address) {
+        await connectWallet();
+      }
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+      const contract = new ethers.Contract(contractAddress, ABI, signer);
+
+      const tx = await contract.cancelQuery(cancelQueryHash);
+      await tx.wait();
+
+      setCancelQueryHash('');
+      updateContractBalance(provider);
+    } catch (err) {
+      setError('Failed to cancel query: ' + (err as Error).message);
+    }
+  };
+
+  const withdraw = async () => {
+    try {
+      if (!address) {
+        await connectWallet();
+      }
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+      const contract = new ethers.Contract(contractAddress, ABI, signer);
+
+      const tx = await contract.withdraw();
+      await tx.wait();
+
+      updateContractBalance(provider);
+    } catch (err) {
+      setError('Failed to withdraw: ' + (err as Error).message);
+    }
+  };
+
   return (
     <div className="bg-gradient-to-r from-purple-800 to-indigo-900 py-16 text-white w-full h-full">
-      <div className="container mx-auto px-4 flex flex-col md:flex-row items-center h-full">
-        <div className="md:w-1/2 mb-8 md:mb-0">
-          <h1 className="text-5xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-300">See the World Through New Eyes</h1>
-          <p className="text-xl mb-8 text-gray-300">Revolutionizing eye care with cutting-edge technology and personalized solutions for your vision needs.</p>
-          <button className="bg-pink-500 hover:bg-pink-600 text-white font-bold py-3 px-6 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">
-            <i className='bx bx-glasses-alt mr-2'></i>
-            Get Started
-          </button>
+      <div className="container mx-auto px-4">
+        <h1 className="text-5xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-300">Airdrop Client Interaction</h1>
+        <p className="text-xl mb-8 text-gray-300">Interact with the AirdropClient smart contract on Sepolia testnet.</p>
+        
+        <div className="bg-white p-6 rounded-lg shadow-xl text-gray-800 mb-8">
+          <h2 className="text-2xl font-semibold mb-4">Wallet Connection</h2>
+          {address ? (
+            <p>Connected Address: {address} {isOwner && '(Owner)'}</p>
+          ) : (
+            <button onClick={connectWallet} className="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded">
+              Connect Wallet
+            </button>
+          )}
         </div>
-        <div className="md:w-1/2 flex justify-center">
-          <div className="bg-white p-6 rounded-lg shadow-xl">
-            <h2 className="text-2xl font-semibold mb-4 text-gray-800">Vision Score Calculator</h2>
+
+        {isOwner && (
+          <div className="bg-white p-6 rounded-lg shadow-xl text-gray-800 mb-8">
+            <h2 className="text-2xl font-semibold mb-4">Owner Actions</h2>
+            <button onClick={queryZKPay} className="bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded mr-4 mb-4">
+              Query ZKPay
+            </button>
             <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="age">
-                Age
-              </label>
-              <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="age" type="number" placeholder="Enter your age" />
+              <input
+                type="text"
+                value={cancelQueryHash}
+                onChange={(e) => setCancelQueryHash(e.target.value)}
+                placeholder="Enter query hash to cancel"
+                className="shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mr-4"
+              />
+              <button onClick={cancelQuery} className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded">
+                Cancel Query
+              </button>
             </div>
-            <div className="mb-6">
-              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="hours">
-                Daily Screen Time (hours)
-              </label>
-              <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="hours" type="number" placeholder="Enter daily screen time" />
-            </div>
-            <button className="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition duration-300 ease-in-out">
-              <i className='bx bx-calculator mr-2'></i>
-              Calculate Score
+            <button onClick={withdraw} className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">
+              Withdraw
             </button>
           </div>
+        )}
+
+        <div className="bg-white p-6 rounded-lg shadow-xl text-gray-800">
+          <h2 className="text-2xl font-semibold mb-4">Contract Information</h2>
+          <p>Contract Balance: {contractBalance} ETH</p>
+          {queryHash && <p>Latest Query Hash: {queryHash}</p>}
         </div>
+
+        {error && (
+          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-4" role="alert">
+            <strong className="font-bold">Error:</strong>
+            <span className="block sm:inline"> {error}</span>
+          </div>
+        )}
       </div>
     </div>
   );
 };
 
-export { Hero as component }
+export { AirdropClientInteraction as component };
