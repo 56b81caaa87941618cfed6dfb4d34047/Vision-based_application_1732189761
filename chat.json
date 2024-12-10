@@ -1189,5 +1189,13 @@
         "source": "smart_contract_assistant",
         "content": "The storing smart contract has been generated as StoringContract2. Would you like to proceed with deploying it to the SEPOLIA network?",
         "metadata": {}
+    },
+    {
+        "id": "5bc74e78-39b7-48e4-bb6b-50f57a3569a6",
+        "timestamp": "2024-12-10T11:31:02.157473Z",
+        "role": "user",
+        "source": "web_client",
+        "content": "generate a storing sc",
+        "metadata": {}
     }
 ]
