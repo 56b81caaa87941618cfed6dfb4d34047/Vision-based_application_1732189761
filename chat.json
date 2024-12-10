@@ -1040,5 +1040,13 @@
         "source": "smart_contract_assistant",
         "content": "The storing smart contract has been regenerated. Would you like to proceed with deploying it to the SEPOLIA network?",
         "metadata": {}
+    },
+    {
+        "id": "4c9a641d-4561-495f-9ee0-8cbc7806a2fe",
+        "timestamp": "2024-12-10T10:57:19.947529Z",
+        "role": "user",
+        "source": "web_client",
+        "content": "deploy it in sepolia again",
+        "metadata": {}
     }
 ]
