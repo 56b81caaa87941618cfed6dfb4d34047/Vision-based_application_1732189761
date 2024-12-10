@@ -579,5 +579,20 @@
         "source": "web_client",
         "content": "generate a mintins sc",
         "metadata": {}
+    },
+    {
+        "id": "d747ce7d-b98e-4e46-ae7e-10859cbce9b8",
+        "timestamp": "2024-12-10T08:58:22.152491Z",
+        "role": "tool_call",
+        "source": "smart_contract_assistant",
+        "content": null,
+        "metadata": {
+            "id": "call_97zxFgnSELRh1Hahe45AkfEG",
+            "function": {
+                "arguments": "{\"contract_id\":\"MiningContract1\",\"description\":\"A smart contract that allows users to mine and earn rewards on the HOLESKY network.\",\"acknowledgement_message\":\"Generating the mining smart contract...\"}",
+                "name": "WriteSmartContract"
+            },
+            "type": "function"
+        }
     }
 ]
