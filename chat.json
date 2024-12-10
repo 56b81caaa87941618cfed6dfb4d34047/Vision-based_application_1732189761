@@ -1587,5 +1587,15 @@
         "source": "smart_contract_assistant",
         "content": "The minting smart contract named MiningContract1 has been generated. Would you like to proceed with deploying it to the SEPOLIA network?",
         "metadata": {}
+    },
+    {
+        "id": "311e1694-b3fe-4e96-86c0-bbc50c05e749",
+        "timestamp": "2024-12-10T12:29:43.991996Z",
+        "role": "user",
+        "source": "web_client",
+        "content": "yes to sepolia",
+        "metadata": {
+            "component_id": "Header1732189764"
+        }
     }
 ]
