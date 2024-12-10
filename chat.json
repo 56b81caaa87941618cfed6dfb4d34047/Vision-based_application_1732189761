@@ -1163,5 +1163,13 @@
             },
             "type": "function"
         }
+    },
+    {
+        "id": "427862c6-7678-49d8-ac28-e3b9ee18ac28",
+        "timestamp": "2024-12-10T11:12:16.830254Z",
+        "role": "assistant",
+        "source": "tool:WriteSmartContract",
+        "content": "Generating the storing smart contract...",
+        "metadata": {}
     }
 ]
