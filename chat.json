@@ -822,5 +822,15 @@
         "source": "smart_contract_assistant",
         "content": "The click counting and transaction sending smart contract has been generated. Would you like to proceed with deploying it to the HOLESKY network?",
         "metadata": {}
+    },
+    {
+        "id": "c603b330-e1af-427b-a38f-c8e5024604fe",
+        "timestamp": "2024-12-10T10:37:13.010190Z",
+        "role": "user",
+        "source": "web_client",
+        "content": "I want to deploy on sepolia network",
+        "metadata": {
+            "component_id": "Hero1732189764"
+        }
     }
 ]
