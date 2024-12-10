@@ -1387,5 +1387,54 @@
         "source": "smart_contract_assistant",
         "content": "The mining smart contract named MiningContract1 has been generated. Would you like to proceed with deploying it to the HOLESKY network?",
         "metadata": {}
+    },
+    {
+        "id": "3a661390-e37e-4ad8-bdb4-871a127c7534",
+        "timestamp": "2024-12-10T11:54:22.926169Z",
+        "role": "user",
+        "source": "web_client",
+        "content": "in sepolia",
+        "metadata": {}
+    },
+    {
+        "id": "f7582525-f311-4347-91f5-77ec65e41dd5",
+        "timestamp": "2024-12-10T11:54:26.015150Z",
+        "role": "tool_call",
+        "source": "smart_contract_assistant",
+        "content": null,
+        "metadata": {
+            "id": "call_7M8UgKwRmrADm0oZ7HKBdDpO",
+            "function": {
+                "arguments": "{\"contract_id\":\"MiningContract1\",\"network\":\"SEPOLIA\",\"frontend_description\":\"Frontend for interacting with the mining contract, handling miner authorization, reward distribution, and claiming rewards.\",\"acknowledgement_message\":\"Deploying the smart contract to the SEPOLIA network...\"}",
+                "name": "DeployAndGenerateFrontend"
+            },
+            "type": "function"
+        }
+    },
+    {
+        "id": "88338af5-3666-4354-be77-52d477068a71",
+        "timestamp": "2024-12-10T11:54:26.125681Z",
+        "role": "assistant",
+        "source": "tool:DeployAndGenerateFrontend",
+        "content": "Deploying the smart contract to the SEPOLIA network...",
+        "metadata": {}
+    },
+    {
+        "id": "426b460d-1b0b-4a40-afb7-71962dea8062",
+        "timestamp": "2024-12-10T11:55:02.802612Z",
+        "role": "tool_result",
+        "source": "DeployAndGenerateFrontend",
+        "content": "Success: deployed contract to 0x9d9823424fE5beD75b87572872C0019130ed1128 on Sepolia (Ethereum testnet)",
+        "metadata": {
+            "tool_call_id": "call_7M8UgKwRmrADm0oZ7HKBdDpO"
+        }
+    },
+    {
+        "id": "7575ebe9-8409-417a-b175-0e714fb45829",
+        "timestamp": "2024-12-10T11:55:05.764492Z",
+        "role": "assistant",
+        "source": "smart_contract_assistant",
+        "content": "The mining smart contract has been successfully deployed to the SEPOLIA network at the address 0x9d9823424fE5beD75b87572872C0019130ed1128. What would you like to do next?",
+        "metadata": {}
     }
 ]
