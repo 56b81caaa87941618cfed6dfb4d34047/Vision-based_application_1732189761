@@ -999,5 +999,20 @@
         "source": "web_client",
         "content": "try again",
         "metadata": {}
+    },
+    {
+        "id": "19cf44cc-8e84-446c-8997-14afbf6c9811",
+        "timestamp": "2024-12-10T10:56:49.534403Z",
+        "role": "tool_call",
+        "source": "smart_contract_assistant",
+        "content": null,
+        "metadata": {
+            "id": "call_05se0cMxMGOJwFnomksfDtXG",
+            "function": {
+                "arguments": "{\"contract_id\":\"StoringContract1\",\"description\":\"A smart contract for securely storing and retrieving data on the blockchain.\",\"acknowledgement_message\":\"Generating the storing smart contract...\"}",
+                "name": "WriteSmartContract"
+            },
+            "type": "function"
+        }
     }
 ]
