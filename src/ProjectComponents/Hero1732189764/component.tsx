@@ -16,14 +16,13 @@ const ABI = [
 
 const AirdropClientInteraction: React.FC = () => {
   const [address, setAddress] = React.useState<string>('');
-  const [isOwner, setIsOwner] = React.useState<boolean>(false);
   const [queryHash, setQueryHash] = React.useState<string>('');
   const [cancelQueryHash, setCancelQueryHash] = React.useState<string>('');
   const [contractBalance, setContractBalance] = React.useState<string>('');
   const [error, setError] = React.useState<string>('');
   const [logs, setLogs] = React.useState<string[]>([]);
 
-  const contractAddress = '0x86a8fd42a544e2d6232A941EF359DE4b65fF74aD';
+  const contractAddress = '0x9d9823424fE5beD75b87572872C0019130ed1128';
   const chainId = 11155111; // Sepolia testnet
 
   const addLog = (message: string) => {
@@ -45,10 +44,6 @@ const AirdropClientInteraction: React.FC = () => {
           params: [{ chainId: ethers.utils.hexValue(chainId) }],
         });
       }
-
-      const contract = new ethers.Contract(contractAddress, ABI, signer);
-      const owner = await contract._owner();
-      setIsOwner(address.toLowerCase() === owner.toLowerCase());
 
       updateContractBalance(provider);
       addLog(`Connected wallet: ${address}`);
@@ -77,8 +72,8 @@ const AirdropClientInteraction: React.FC = () => {
 
       addLog('Starting ZKPay query...');
 
-      // Send 0.01 ETH for 10 payments of 0.001 ETH each
-      const totalAmount = ethers.utils.parseEther("0.1");
+      // Send 0.011 ETH (0.001 ETH * 10 + extra for query)
+      const totalAmount = ethers.utils.parseEther("0.011");
       const tx = await contract.queryZKPay({ value: totalAmount });
       addLog(`Transaction sent: ${tx.hash}`);
 
@@ -155,19 +150,16 @@ const AirdropClientInteraction: React.FC = () => {
   };
 
   return (
-    <div className="bg-gradient-to-r from-purple-800 to-indigo-900 py-16 text-white min-h-screen">
-      <div className="container mx-auto px-4">
-        <h1 className="text-5xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-300">
+    <div className="bg-gradient-to-r from-purple-800 to-indigo-900 p-5 text-white min-h-screen">
+      <div className="container mx-auto">
+        <h1 className="text-4xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-300">
           Airdrop Client Interaction
         </h1>
-        <p className="text-xl mb-8 text-gray-300">
-          Interact with the AirdropClient smart contract on Sepolia testnet.
-        </p>
         
-        <div className="bg-white p-6 rounded-lg shadow-xl text-gray-800 mb-8">
+        <div className="bg-white p-5 rounded-lg shadow-md text-gray-800 mb-5">
           <h2 className="text-2xl font-semibold mb-4">Wallet Connection</h2>
           {address ? (
-            <p>Connected Address: {address} {isOwner && '(Owner)'}</p>
+            <p>Connected Address: {address}</p>
           ) : (
             <button onClick={connectWallet} className="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded">
               Connect Wallet
@@ -175,37 +167,35 @@ const AirdropClientInteraction: React.FC = () => {
           )}
         </div>
 
-        {isOwner && (
-          <div className="bg-white p-6 rounded-lg shadow-xl text-gray-800 mb-8">
-            <h2 className="text-2xl font-semibold mb-4">Owner Actions</h2>
-            <button onClick={queryZKPay} className="bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded mr-4 mb-4">
-              Query ZKPay (0.1 ETH)
-            </button>
-            <div className="mb-4">
-              <input
-                type="text"
-                value={cancelQueryHash}
-                onChange={(e) => setCancelQueryHash(e.target.value)}
-                placeholder="Enter query hash to cancel"
-                className="shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mr-4"
-              />
-              <button onClick={cancelQuery} className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded">
-                Cancel Query
-              </button>
-            </div>
-            <button onClick={withdraw} className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">
-              Withdraw
+        <div className="bg-white p-5 rounded-lg shadow-md text-gray-800 mb-5">
+          <h2 className="text-2xl font-semibold mb-4">Contract Actions</h2>
+          <button onClick={queryZKPay} className="bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded mr-4 mb-4">
+            Query ZKPay (0.011 ETH)
+          </button>
+          <div className="mb-4">
+            <input
+              type="text"
+              value={cancelQueryHash}
+              onChange={(e) => setCancelQueryHash(e.target.value)}
+              placeholder="Enter query hash to cancel"
+              className="shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mr-4"
+            />
+            <button onClick={cancelQuery} className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded">
+              Cancel Query
             </button>
           </div>
-        )}
+          <button onClick={withdraw} className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">
+            Withdraw
+          </button>
+        </div>
 
-        <div className="bg-white p-6 rounded-lg shadow-xl text-gray-800 mb-8">
+        <div className="bg-white p-5 rounded-lg shadow-md text-gray-800 mb-5">
           <h2 className="text-2xl font-semibold mb-4">Contract Information</h2>
           <p>Contract Balance: {contractBalance} ETH</p>
           {queryHash && <p>Latest Query Hash: {queryHash}</p>}
         </div>
 
-        <div className="bg-white p-6 rounded-lg shadow-xl text-gray-800">
+        <div className="bg-white p-5 rounded-lg shadow-md text-gray-800">
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-2xl font-semibold">Debug Logs</h2>
             <button onClick={clearLogs} className="bg-gray-500 hover:bg-gray-600 text-white font-bold py-1 px-3 rounded text-sm">
