@@ -1230,5 +1230,13 @@
         "metadata": {
             "tool_call_id": "call_9Pk5FlxBrgPiGlgYWRGZVkDU"
         }
+    },
+    {
+        "id": "5ab9bc13-6bfb-4836-8196-7fc316d9137f",
+        "timestamp": "2024-12-10T11:31:24.837661Z",
+        "role": "assistant",
+        "source": "smart_contract_assistant",
+        "content": "The storing smart contract has been generated as StoringContract2. Would you like to proceed with deploying it to the SEPOLIA network?",
+        "metadata": {}
     }
 ]
