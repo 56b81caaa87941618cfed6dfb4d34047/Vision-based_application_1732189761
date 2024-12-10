@@ -11,7 +11,9 @@ const ABI = [
   "event PaymentCalculated(uint256 totalPayment, uint256 queryAmount)",
   "event QueryCancelled(bytes32 queryHash)",
   "event WithdrawExecuted(uint256 amount)",
-  "event FundsReceived(address sender, uint256 amount)"
+  "event FundsReceived(address sender, uint256 amount)",
+  "event QueryPreFlight(uint256 msgValue, uint256 gasLimit, address caller)",
+  "event DebugQuery(bytes encodedQuery)"
 ];
 
 const AirdropClientInteraction: React.FC = () => {
