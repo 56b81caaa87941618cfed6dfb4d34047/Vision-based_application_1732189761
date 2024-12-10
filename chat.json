@@ -1485,5 +1485,15 @@
         "source": "smart_contract_assistant",
         "content": "The frontend for interacting with the mining smart contract has been successfully generated in the Hero section. What would you like to do next?",
         "metadata": {}
+    },
+    {
+        "id": "7e4c3037-d62a-46f5-9e0e-c1f4fdc3d4ac",
+        "timestamp": "2024-12-10T12:22:30.550069Z",
+        "role": "user",
+        "source": "web_client",
+        "content": "generate a minting sc",
+        "metadata": {
+            "component_id": "Hero1732189764"
+        }
     }
 ]
