@@ -1395,5 +1395,20 @@
         "source": "web_client",
         "content": "in sepolia",
         "metadata": {}
+    },
+    {
+        "id": "f7582525-f311-4347-91f5-77ec65e41dd5",
+        "timestamp": "2024-12-10T11:54:26.015150Z",
+        "role": "tool_call",
+        "source": "smart_contract_assistant",
+        "content": null,
+        "metadata": {
+            "id": "call_7M8UgKwRmrADm0oZ7HKBdDpO",
+            "function": {
+                "arguments": "{\"contract_id\":\"MiningContract1\",\"network\":\"SEPOLIA\",\"frontend_description\":\"Frontend for interacting with the mining contract, handling miner authorization, reward distribution, and claiming rewards.\",\"acknowledgement_message\":\"Deploying the smart contract to the SEPOLIA network...\"}",
+                "name": "DeployAndGenerateFrontend"
+            },
+            "type": "function"
+        }
     }
 ]
