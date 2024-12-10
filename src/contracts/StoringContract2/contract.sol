@@ -10,12 +10,16 @@ import { SafeERC20 } from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.s
 contract AirdropClient {
     using SafeERC20 for IERC20;
 
-        address public _owner;
-    address public constant _zkpay = 0x25a5674f3D6Afb27e20820063B4fE2786bcB2e6D; // Replace with actual ZKPay address
+    address public _owner;
+    address public constant _zkpay = 0x25a5674f3D6Afb27e20820063B4fE2786bcB2e6D;
     uint256 public constant PAYMENT_AMOUNT = 0.001 ether;
     bytes32 public _queryHash;
 
     event QuerySubmitted(bytes32 queryHash);
+    event PaymentCalculated(uint256 totalPayment, uint256 queryAmount);
+    event QueryCancelled(bytes32 queryHash);
+    event WithdrawExecuted(uint256 amount);
+    event FundsReceived(address sender, uint256 amount);
 
     constructor() {
         _owner = msg.sender;
@@ -37,25 +41,33 @@ contract AirdropClient {
             timeout: uint64(block.timestamp + 30 minutes),
             callbackClientContractAddress: address(this),
             callbackGasLimit: 400_000,
-            callbackData: abi.encode(PAYMENT_AMOUNT),  // Pass payment amount as callback data
+            callbackData: abi.encode(PAYMENT_AMOUNT),
             zkVerficiation: DataTypes.ZKVerification.External
         });
         
-        uint256 totalPayment = PAYMENT_AMOUNT * 10; // Maximum possible recipients
+        uint256 totalPayment = PAYMENT_AMOUNT * 10;
         require(msg.value >= totalPayment, "Insufficient ETH sent for payments");
+        
+        uint256 queryAmount = msg.value - totalPayment;
+        emit PaymentCalculated(totalPayment, queryAmount);
 
-        _queryHash = IZKPay(_zkpay).queryWithNative{ value: msg.value - totalPayment } (queryData);
+        _queryHash = IZKPay(_zkpay).queryWithNative{ value: queryAmount }(queryData);
         emit QuerySubmitted(_queryHash);
     }
 
     function cancelQuery(bytes32 queryHash) external onlyOwner {
         IZKPay(_zkpay).cancelQueryPayment(queryHash);
+        emit QueryCancelled(queryHash);
     }
 
     function withdraw() external onlyOwner {
-        (bool success,) = _owner.call{ value: address(this).balance } ("");
+        uint256 amount = address(this).balance;
+        (bool success,) = _owner.call{ value: amount }("");
         require(success, "Failed to send Ether");
+        emit WithdrawExecuted(amount);
     }
 
-    receive() external payable { }
+    receive() external payable {
+        emit FundsReceived(msg.sender, msg.value);
+    }
 }
