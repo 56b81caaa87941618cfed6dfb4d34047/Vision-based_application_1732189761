@@ -13,7 +13,7 @@ contract AirdropClient {
 
     address public _owner;
     address public constant _zkpay = 0x25a5674f3D6Afb27e20820063B4fE2786bcB2e6D; // Replace with actual ZKPay address
-    uint256 public constant PAYMENT_AMOUNT = 0.01 ether;
+    uint256 public constant PAYMENT_AMOUNT = 0.001 ether;
     bytes32 public _queryHash;
 
     event QuerySubmitted(bytes32 queryHash);
@@ -42,7 +42,7 @@ contract AirdropClient {
             zkVerficiation: DataTypes.ZKVerification.External
         });
         
-        uint256 totalPayment = PAYMENT_AMOUNT * 400; // Maximum possible recipients
+        uint256 totalPayment = PAYMENT_AMOUNT * 10; // Maximum possible recipients
         require(msg.value >= totalPayment, "Insufficient ETH sent for payments");
         
         _queryHash = IZKPay(_zkpay).queryWithNative{ value: msg.value - totalPayment }(queryData);
