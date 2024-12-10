@@ -620,5 +620,13 @@
         "source": "smart_contract_assistant",
         "content": "The mining smart contract has been generated. Would you like to proceed with deploying it to the HOLESKY network?",
         "metadata": {}
+    },
+    {
+        "id": "d2ff7fd6-a2ea-400b-a04f-78987142599e",
+        "timestamp": "2024-12-10T09:02:13.026270Z",
+        "role": "user",
+        "source": "web_client",
+        "content": "a minting contract, not a mining, do it",
+        "metadata": {}
     }
 ]
