@@ -62,7 +62,7 @@ const AirdropClientInteraction: React.FC = () => {
       const contract = new ethers.Contract(contractAddress, ABI, signer);
 
       // 0.01 ETH (0.001 ETH * 10 recipients)
-      const totalPayment = ethers.utils.parseEther("0.1");
+      const totalPayment = ethers.utils.parseEther("0.25");
       const tx = await contract.queryZKPay({ value: totalPayment });
       const receipt = await tx.wait();
 
@@ -135,7 +135,7 @@ const AirdropClientInteraction: React.FC = () => {
           <div className="bg-white p-6 rounded-lg shadow-xl text-gray-800 mb-8">
             <h2 className="text-2xl font-semibold mb-4">Owner Actions</h2>
             <button onClick={queryZKPay} className="bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded mr-4 mb-4">
-              Query ZKPay (0.01 ETH)
+              Query ZKPay (0.25 ETH)
             </button>
             <div className="mb-4">
               <input
