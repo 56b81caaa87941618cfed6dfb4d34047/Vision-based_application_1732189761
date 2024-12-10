@@ -18,7 +18,7 @@ const AirdropClientInteraction: React.FC = () => {
   const [contractBalance, setContractBalance] = React.useState<string>('');
   const [error, setError] = React.useState<string>('');
 
-  const contractAddress = '0xAb45Ab86CbC6127e94f650a2b7058670b1eC081E';
+  const contractAddress = '0xF9D5135473783c1097D43E467739be426259827e';
   const chainId = 11155111; // Sepolia testnet
 
   const connectWallet = async () => {
