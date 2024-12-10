@@ -1387,5 +1387,13 @@
         "source": "smart_contract_assistant",
         "content": "The mining smart contract named MiningContract1 has been generated. Would you like to proceed with deploying it to the HOLESKY network?",
         "metadata": {}
+    },
+    {
+        "id": "3a661390-e37e-4ad8-bdb4-871a127c7534",
+        "timestamp": "2024-12-10T11:54:22.926169Z",
+        "role": "user",
+        "source": "web_client",
+        "content": "in sepolia",
+        "metadata": {}
     }
 ]
