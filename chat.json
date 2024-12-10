@@ -1140,5 +1140,13 @@
         "source": "smart_contract_assistant",
         "content": "The frontend for interacting with the storing smart contract has been successfully generated in the Hero section. What would you like to do next?",
         "metadata": {}
+    },
+    {
+        "id": "889a006e-6eba-46dc-8970-c5f110a3a2ae",
+        "timestamp": "2024-12-10T11:12:14.149564Z",
+        "role": "user",
+        "source": "web_client",
+        "content": "generate a storing sc",
+        "metadata": {}
     }
 ]
