@@ -1597,5 +1597,20 @@
         "metadata": {
             "component_id": "Header1732189764"
         }
+    },
+    {
+        "id": "95df8943-5928-4740-972a-c9cf3909eed5",
+        "timestamp": "2024-12-10T12:29:46.819686Z",
+        "role": "tool_call",
+        "source": "smart_contract_assistant",
+        "content": null,
+        "metadata": {
+            "id": "call_NaXN11AMAMHd7Io5g4milSrf",
+            "function": {
+                "arguments": "{\"contract_id\":\"MiningContract1\",\"network\":\"SEPOLIA\",\"frontend_description\":\"Frontend for interacting with the minting contract, handling token minting operations as defined in the contract.\",\"acknowledgement_message\":\"Deploying the smart contract to the SEPOLIA network...\"}",
+                "name": "DeployAndGenerateFrontend"
+            },
+            "type": "function"
+        }
     }
 ]
