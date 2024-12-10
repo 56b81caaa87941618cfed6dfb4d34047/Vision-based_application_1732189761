@@ -873,5 +873,15 @@
         "source": "smart_contract_assistant",
         "content": "The smart contract has been successfully deployed to the SEPOLIA network at the address 0xAb45Ab86CbC6127e94f650a2b7058670b1eC081E. What would you like to do next?",
         "metadata": {}
+    },
+    {
+        "id": "bdd01ea1-b833-4088-9338-282a346dd858",
+        "timestamp": "2024-12-10T10:39:57.467075Z",
+        "role": "user",
+        "source": "web_client",
+        "content": "I want you to generate a frontend for this",
+        "metadata": {
+            "component_id": "Hero1732189764"
+        }
     }
 ]
