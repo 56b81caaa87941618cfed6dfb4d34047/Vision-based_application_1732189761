@@ -1428,5 +1428,13 @@
         "metadata": {
             "tool_call_id": "call_7M8UgKwRmrADm0oZ7HKBdDpO"
         }
+    },
+    {
+        "id": "7575ebe9-8409-417a-b175-0e714fb45829",
+        "timestamp": "2024-12-10T11:55:05.764492Z",
+        "role": "assistant",
+        "source": "smart_contract_assistant",
+        "content": "The mining smart contract has been successfully deployed to the SEPOLIA network at the address 0x9d9823424fE5beD75b87572872C0019130ed1128. What would you like to do next?",
+        "metadata": {}
     }
 ]
