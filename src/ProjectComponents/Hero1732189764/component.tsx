@@ -62,7 +62,7 @@ const AirdropClientInteraction: React.FC = () => {
       const contract = new ethers.Contract(contractAddress, ABI, signer);
 
       // 0.01 ETH (0.001 ETH * 10 recipients)
-      const totalPayment = ethers.utils.parseEther("0.01");
+      const totalPayment = ethers.utils.parseEther("0.1");
       const tx = await contract.queryZKPay({ value: totalPayment });
       const receipt = await tx.wait();
 
