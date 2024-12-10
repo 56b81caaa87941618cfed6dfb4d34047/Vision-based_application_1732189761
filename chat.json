@@ -612,5 +612,13 @@
         "metadata": {
             "tool_call_id": "call_97zxFgnSELRh1Hahe45AkfEG"
         }
+    },
+    {
+        "id": "3f548c25-4a3e-4090-b7ca-46ee274f03f2",
+        "timestamp": "2024-12-10T08:58:53.846098Z",
+        "role": "assistant",
+        "source": "smart_contract_assistant",
+        "content": "The mining smart contract has been generated. Would you like to proceed with deploying it to the HOLESKY network?",
+        "metadata": {}
     }
 ]
