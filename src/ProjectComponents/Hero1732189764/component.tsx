@@ -1,19 +1,17 @@
 
 import React from 'react';
-import * as ethers from 'ethers';
+import { ethers } from 'ethers';
 
 const ABI = [
   "function queryZKPay() external payable",
   "function cancelQuery(bytes32 queryHash) external",
   "function withdraw() external",
   "function _owner() public view returns (address)",
-  // Debug Events
   "event QuerySubmitted(bytes32 queryHash)",
-  "event QueryStarted(address caller, uint256 value)",
-  "event QueryDataPrepared(bytes query, uint256 timeout, uint256 gasLimit)",
-  "event PaymentCalculated(uint256 totalPayment, uint256 remainingValue)",
-  "event QueryFailed(string reason)",
-  "event ContractBalance(uint256 balance)"
+  "event PaymentCalculated(uint256 totalPayment, uint256 queryAmount)",
+  "event QueryCancelled(bytes32 queryHash)",
+  "event WithdrawExecuted(uint256 amount)",
+  "event FundsReceived(address sender, uint256 amount)"
 ];
 
 const AirdropClientInteraction: React.FC = () => {
@@ -25,7 +23,7 @@ const AirdropClientInteraction: React.FC = () => {
   const [error, setError] = React.useState<string>('');
   const [logs, setLogs] = React.useState<string[]>([]);
 
-  const contractAddress = '0xF9D5135473783c1097D43E467739be426259827e';
+  const contractAddress = '0x86a8fd42a544e2d6232A941EF359DE4b65fF74aD';
   const chainId = 11155111; // Sepolia testnet
 
   const addLog = (message: string) => {
@@ -68,32 +66,6 @@ const AirdropClientInteraction: React.FC = () => {
     addLog(`Contract balance updated: ${formattedBalance} ETH`);
   };
 
-  const setupEventListeners = (contract: ethers.Contract) => {
-    contract.on("QueryStarted", (caller, value) => {
-      addLog(`Query Started - Caller: ${caller}, Value: ${ethers.utils.formatEther(value)} ETH`);
-    });
-
-    contract.on("QueryDataPrepared", (query, timeout, gasLimit) => {
-      addLog(`Query Data Prepared - Gas Limit: ${gasLimit}`);
-    });
-
-    contract.on("PaymentCalculated", (totalPayment, remainingValue) => {
-      addLog(`Payment Calculated - Total: ${ethers.utils.formatEther(totalPayment)} ETH, Remaining: ${ethers.utils.formatEther(remainingValue)} ETH`);
-    });
-
-    contract.on("QueryFailed", (reason) => {
-      addLog(`Query Failed - Reason: ${reason}`);
-    });
-
-    contract.on("ContractBalance", (balance) => {
-      addLog(`Contract Balance Event - Balance: ${ethers.utils.formatEther(balance)} ETH`);
-    });
-
-    return () => {
-      contract.removeAllListeners();
-    };
-  };
-
   const queryZKPay = async () => {
     try {
       if (!address) {
@@ -103,13 +75,10 @@ const AirdropClientInteraction: React.FC = () => {
       const signer = provider.getSigner();
       const contract = new ethers.Contract(contractAddress, ABI, signer);
 
-      // Setup event listeners
-      const cleanup = setupEventListeners(contract);
-
       addLog('Starting ZKPay query...');
 
-      // Send 0.1 ETH total
-      const totalAmount = ethers.utils.parseEther("0.1");
+      // Send 0.01 ETH for 10 payments of 0.001 ETH each
+      const totalAmount = ethers.utils.parseEther("0.01");
       const tx = await contract.queryZKPay({ value: totalAmount });
       addLog(`Transaction sent: ${tx.hash}`);
 
@@ -124,7 +93,6 @@ const AirdropClientInteraction: React.FC = () => {
       }
 
       await updateContractBalance(provider);
-      cleanup(); // Remove event listeners
     } catch (err) {
       const errorMessage = 'Failed to query ZKPay: ' + (err as Error).message;
       setError(errorMessage);
@@ -211,7 +179,7 @@ const AirdropClientInteraction: React.FC = () => {
           <div className="bg-white p-6 rounded-lg shadow-xl text-gray-800 mb-8">
             <h2 className="text-2xl font-semibold mb-4">Owner Actions</h2>
             <button onClick={queryZKPay} className="bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded mr-4 mb-4">
-              Query ZKPay (0.1 ETH)
+              Query ZKPay (0.01 ETH)
             </button>
             <div className="mb-4">
               <input
