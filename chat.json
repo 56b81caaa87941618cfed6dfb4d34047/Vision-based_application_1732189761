@@ -1246,5 +1246,20 @@
         "source": "web_client",
         "content": "yes",
         "metadata": {}
+    },
+    {
+        "id": "391666a3-7567-4fb6-a240-0c2924ea9978",
+        "timestamp": "2024-12-10T11:31:35.475883Z",
+        "role": "tool_call",
+        "source": "smart_contract_assistant",
+        "content": null,
+        "metadata": {
+            "id": "call_qlRVR5yQv9vevNFWmLgSHWFW",
+            "function": {
+                "arguments": "{\"contract_id\":\"StoringContract2\",\"network\":\"SEPOLIA\",\"frontend_description\":\"Frontend for securely storing and retrieving data, handling data storage and retrieval operations as defined in the contract.\",\"acknowledgement_message\":\"Deploying the smart contract to the SEPOLIA network...\"}",
+                "name": "DeployAndGenerateFrontend"
+            },
+            "type": "function"
+        }
     }
 ]
