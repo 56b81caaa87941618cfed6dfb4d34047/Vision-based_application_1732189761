@@ -61,7 +61,9 @@ const AirdropClientInteraction: React.FC = () => {
       const signer = provider.getSigner();
       const contract = new ethers.Contract(contractAddress, ABI, signer);
 
-      const tx = await contract.queryZKPay({ value: ethers.utils.parseEther("4") });
+      // 0.01 ETH (0.001 ETH * 10 recipients)
+      const totalPayment = ethers.utils.parseEther("0.01");
+      const tx = await contract.queryZKPay({ value: totalPayment });
       const receipt = await tx.wait();
 
       const event = receipt.events?.find((e: any) => e.event === 'QuerySubmitted');
@@ -113,7 +115,7 @@ const AirdropClientInteraction: React.FC = () => {
   };
 
   return (
-    <div className="bg-gradient-to-r from-purple-800 to-indigo-900 py-16 text-white w-full h-full">
+    <div className="bg-gradient-to-r from-purple-800 to-indigo-900 py-16 text-white min-h-screen">
       <div className="container mx-auto px-4">
         <h1 className="text-5xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-300">Airdrop Client Interaction</h1>
         <p className="text-xl mb-8 text-gray-300">Interact with the AirdropClient smart contract on Sepolia testnet.</p>
@@ -133,7 +135,7 @@ const AirdropClientInteraction: React.FC = () => {
           <div className="bg-white p-6 rounded-lg shadow-xl text-gray-800 mb-8">
             <h2 className="text-2xl font-semibold mb-4">Owner Actions</h2>
             <button onClick={queryZKPay} className="bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded mr-4 mb-4">
-              Query ZKPay
+              Query ZKPay (0.01 ETH)
             </button>
             <div className="mb-4">
               <input
