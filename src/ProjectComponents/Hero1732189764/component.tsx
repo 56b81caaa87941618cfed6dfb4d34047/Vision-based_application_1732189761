@@ -7,7 +7,13 @@ const ABI = [
   "function cancelQuery(bytes32 queryHash) external",
   "function withdraw() external",
   "function _owner() public view returns (address)",
-  "event QuerySubmitted(bytes32 queryHash)"
+  // Debug Events
+  "event QuerySubmitted(bytes32 queryHash)",
+  "event QueryStarted(address caller, uint256 value)",
+  "event QueryDataPrepared(bytes query, uint256 timeout, uint256 gasLimit)",
+  "event PaymentCalculated(uint256 totalPayment, uint256 remainingValue)",
+  "event QueryFailed(string reason)",
+  "event ContractBalance(uint256 balance)"
 ];
 
 const AirdropClientInteraction: React.FC = () => {
@@ -17,9 +23,14 @@ const AirdropClientInteraction: React.FC = () => {
   const [cancelQueryHash, setCancelQueryHash] = React.useState<string>('');
   const [contractBalance, setContractBalance] = React.useState<string>('');
   const [error, setError] = React.useState<string>('');
+  const [logs, setLogs] = React.useState<string[]>([]);
 
   const contractAddress = '0xF9D5135473783c1097D43E467739be426259827e';
   const chainId = 11155111; // Sepolia testnet
+
+  const addLog = (message: string) => {
+    setLogs(prevLogs => [...prevLogs, `${new Date().toISOString()}: ${message}`]);
+  };
 
   const connectWallet = async () => {
     try {
@@ -42,14 +53,45 @@ const AirdropClientInteraction: React.FC = () => {
       setIsOwner(address.toLowerCase() === owner.toLowerCase());
 
       updateContractBalance(provider);
+      addLog(`Connected wallet: ${address}`);
     } catch (err) {
-      setError('Failed to connect wallet: ' + (err as Error).message);
+      const errorMessage = 'Failed to connect wallet: ' + (err as Error).message;
+      setError(errorMessage);
+      addLog(`Error: ${errorMessage}`);
     }
   };
 
   const updateContractBalance = async (provider: ethers.providers.Web3Provider) => {
     const balance = await provider.getBalance(contractAddress);
-    setContractBalance(ethers.utils.formatEther(balance));
+    const formattedBalance = ethers.utils.formatEther(balance);
+    setContractBalance(formattedBalance);
+    addLog(`Contract balance updated: ${formattedBalance} ETH`);
+  };
+
+  const setupEventListeners = (contract: ethers.Contract) => {
+    contract.on("QueryStarted", (caller, value) => {
+      addLog(`Query Started - Caller: ${caller}, Value: ${ethers.utils.formatEther(value)} ETH`);
+    });
+
+    contract.on("QueryDataPrepared", (query, timeout, gasLimit) => {
+      addLog(`Query Data Prepared - Gas Limit: ${gasLimit}`);
+    });
+
+    contract.on("PaymentCalculated", (totalPayment, remainingValue) => {
+      addLog(`Payment Calculated - Total: ${ethers.utils.formatEther(totalPayment)} ETH, Remaining: ${ethers.utils.formatEther(remainingValue)} ETH`);
+    });
+
+    contract.on("QueryFailed", (reason) => {
+      addLog(`Query Failed - Reason: ${reason}`);
+    });
+
+    contract.on("ContractBalance", (balance) => {
+      addLog(`Contract Balance Event - Balance: ${ethers.utils.formatEther(balance)} ETH`);
+    });
+
+    return () => {
+      contract.removeAllListeners();
+    };
   };
 
   const queryZKPay = async () => {
@@ -61,19 +103,32 @@ const AirdropClientInteraction: React.FC = () => {
       const signer = provider.getSigner();
       const contract = new ethers.Contract(contractAddress, ABI, signer);
 
-      // 0.01 ETH (0.001 ETH * 10 recipients)
-      const totalPayment = ethers.utils.parseEther("0.25");
-      const tx = await contract.queryZKPay({ value: totalPayment });
+      // Setup event listeners
+      const cleanup = setupEventListeners(contract);
+
+      addLog('Starting ZKPay query...');
+
+      // Send 0.1 ETH total
+      const totalAmount = ethers.utils.parseEther("0.1");
+      const tx = await contract.queryZKPay({ value: totalAmount });
+      addLog(`Transaction sent: ${tx.hash}`);
+
       const receipt = await tx.wait();
+      addLog(`Transaction confirmed in block: ${receipt.blockNumber}`);
 
       const event = receipt.events?.find((e: any) => e.event === 'QuerySubmitted');
       if (event) {
-        setQueryHash(event.args?.queryHash);
+        const newQueryHash = event.args?.queryHash;
+        setQueryHash(newQueryHash);
+        addLog(`Query hash received: ${newQueryHash}`);
       }
 
-      updateContractBalance(provider);
+      await updateContractBalance(provider);
+      cleanup(); // Remove event listeners
     } catch (err) {
-      setError('Failed to query ZKPay: ' + (err as Error).message);
+      const errorMessage = 'Failed to query ZKPay: ' + (err as Error).message;
+      setError(errorMessage);
+      addLog(`Error: ${errorMessage}`);
     }
   };
 
@@ -86,13 +141,19 @@ const AirdropClientInteraction: React.FC = () => {
       const signer = provider.getSigner();
       const contract = new ethers.Contract(contractAddress, ABI, signer);
 
+      addLog(`Attempting to cancel query: ${cancelQueryHash}`);
       const tx = await contract.cancelQuery(cancelQueryHash);
+      addLog(`Cancel transaction sent: ${tx.hash}`);
+
       await tx.wait();
+      addLog('Query cancelled successfully');
 
       setCancelQueryHash('');
-      updateContractBalance(provider);
+      await updateContractBalance(provider);
     } catch (err) {
-      setError('Failed to cancel query: ' + (err as Error).message);
+      const errorMessage = 'Failed to cancel query: ' + (err as Error).message;
+      setError(errorMessage);
+      addLog(`Error: ${errorMessage}`);
     }
   };
 
@@ -105,20 +166,35 @@ const AirdropClientInteraction: React.FC = () => {
       const signer = provider.getSigner();
       const contract = new ethers.Contract(contractAddress, ABI, signer);
 
+      addLog('Initiating withdrawal...');
       const tx = await contract.withdraw();
-      await tx.wait();
+      addLog(`Withdrawal transaction sent: ${tx.hash}`);
 
-      updateContractBalance(provider);
+      await tx.wait();
+      addLog('Withdrawal successful');
+
+      await updateContractBalance(provider);
     } catch (err) {
-      setError('Failed to withdraw: ' + (err as Error).message);
+      const errorMessage = 'Failed to withdraw: ' + (err as Error).message;
+      setError(errorMessage);
+      addLog(`Error: ${errorMessage}`);
     }
+  };
+
+  const clearLogs = () => {
+    setLogs([]);
+    setError('');
   };
 
   return (
     <div className="bg-gradient-to-r from-purple-800 to-indigo-900 py-16 text-white min-h-screen">
       <div className="container mx-auto px-4">
-        <h1 className="text-5xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-300">Airdrop Client Interaction</h1>
-        <p className="text-xl mb-8 text-gray-300">Interact with the AirdropClient smart contract on Sepolia testnet.</p>
+        <h1 className="text-5xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-300">
+          Airdrop Client Interaction
+        </h1>
+        <p className="text-xl mb-8 text-gray-300">
+          Interact with the AirdropClient smart contract on Sepolia testnet.
+        </p>
         
         <div className="bg-white p-6 rounded-lg shadow-xl text-gray-800 mb-8">
           <h2 className="text-2xl font-semibold mb-4">Wallet Connection</h2>
@@ -135,7 +211,7 @@ const AirdropClientInteraction: React.FC = () => {
           <div className="bg-white p-6 rounded-lg shadow-xl text-gray-800 mb-8">
             <h2 className="text-2xl font-semibold mb-4">Owner Actions</h2>
             <button onClick={queryZKPay} className="bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded mr-4 mb-4">
-              Query ZKPay (0.25 ETH)
+              Query ZKPay (0.1 ETH)
             </button>
             <div className="mb-4">
               <input
@@ -155,10 +231,26 @@ const AirdropClientInteraction: React.FC = () => {
           </div>
         )}
 
-        <div className="bg-white p-6 rounded-lg shadow-xl text-gray-800">
+        <div className="bg-white p-6 rounded-lg shadow-xl text-gray-800 mb-8">
           <h2 className="text-2xl font-semibold mb-4">Contract Information</h2>
           <p>Contract Balance: {contractBalance} ETH</p>
           {queryHash && <p>Latest Query Hash: {queryHash}</p>}
+        </div>
+
+        <div className="bg-white p-6 rounded-lg shadow-xl text-gray-800">
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-2xl font-semibold">Debug Logs</h2>
+            <button onClick={clearLogs} className="bg-gray-500 hover:bg-gray-600 text-white font-bold py-1 px-3 rounded text-sm">
+              Clear Logs
+            </button>
+          </div>
+          <div className="bg-gray-100 p-4 rounded-lg max-h-96 overflow-auto">
+            {logs.map((log, index) => (
+              <div key={index} className="text-sm font-mono mb-1">
+                {log}
+              </div>
+            ))}
+          </div>
         </div>
 
         {error && (
