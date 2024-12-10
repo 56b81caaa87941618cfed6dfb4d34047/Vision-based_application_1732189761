@@ -669,5 +669,15 @@
         "source": "smart_contract_assistant",
         "content": "The minting smart contract has been generated. Would you like to proceed with deploying it to the HOLESKY network?",
         "metadata": {}
+    },
+    {
+        "id": "a995e9db-8267-4aaf-8026-6bce0c209dcc",
+        "timestamp": "2024-12-10T09:04:55.493952Z",
+        "role": "user",
+        "source": "web_client",
+        "content": "generate a storing smart contract",
+        "metadata": {
+            "component_id": "Header1732189764"
+        }
     }
 ]
