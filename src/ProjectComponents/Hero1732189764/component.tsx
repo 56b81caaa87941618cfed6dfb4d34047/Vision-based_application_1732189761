@@ -24,7 +24,7 @@ const AirdropClientInteraction: React.FC = () => {
   const [error, setError] = React.useState<string>('');
   const [logs, setLogs] = React.useState<string[]>([]);
 
-  const contractAddress = '0x9d9823424fE5beD75b87572872C0019130ed1128';
+  const contractAddress = '0x868D3CA32262e254fc81c013C3Dd450DCBe0Afa3';
   const chainId = 11155111; // Sepolia testnet
 
   const addLog = (message: string) => {
